@@ -25,11 +25,50 @@
 #include "partition.h"
 
 /**
+ * populate
+ */
+static void populate (disk &d)
+{
+	d.size = 100;
+
+	partition *p;
+	fs *f;
+
+	p = new partition();
+	p->type = 42;
+	p->size = 30;
+
+	f = new fs();
+	f->fstype = 7;
+	f->size = 30;
+
+	p->add (f);
+
+	d.add (p);
+
+	p = new partition();
+	p->type = 99;
+	p->size = 20;
+
+	f = new fs();
+	f->fstype = 9;
+	f->size = 15;
+
+	p->add (f);
+
+	d.add (p);
+}
+
+
+/**
  * main
  */
 int main (int argc, char *argv[])
 {
 	disk d;
+	populate (d);
+
+	std::cout << d << std::endl;
 
 	return 0;
 }

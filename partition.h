@@ -19,11 +19,7 @@
 #ifndef _PARTITION_H_
 #define _PARTITION_H_
 
-#include <string>
-
 #include "container.h"
-
-using std::string;
 
 class partition : public container
 {
@@ -31,8 +27,9 @@ public:
 	partition();
 	virtual ~partition();
 
-protected:
 	int type;
+
+protected:
 };
 
 #endif // _PARTITION_H_

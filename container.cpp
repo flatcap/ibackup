@@ -16,12 +16,15 @@
  */
 
 
+#include <typeinfo>
+
 #include "container.h"
 
 /**
  * container
  */
-container::container()
+container::container() :
+	size(0)
 {
 }
 
@@ -30,19 +33,54 @@ container::container()
  */
 container::~container()
 {
+	for (auto c : children) {
+		delete c;
+	}
 }
+
 
 /**
  * add
  */
-void container::add (container *c)
+int container::add (container *c)
 {
+	children.push_back(c);
+	return children.size();
 }
 
 /**
  * remove
  */
-void container::remove (int index)
+int container::remove (int index)
 {
+	children.erase(children.begin() + index);
+	return children.size();
 }
+
+
+/**
+ * operator<<
+ */
+std::ostream& operator<< (std::ostream &stream, const container &c)
+{
+	stream << typeid(c).name() << " = " << c.size;
+
+	for (auto i : c.children) {
+		stream << "\n\t" << i;
+	}
+
+	return stream;
+}
+
+/**
+ * operator<<
+ */
+std::ostream& operator<< (std::ostream &stream, const container *c)
+{
+	if (c)
+		return operator<< (stream, *c);
+	else
+		return stream;
+}
+
 

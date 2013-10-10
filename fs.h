@@ -23,16 +23,15 @@
 
 #include "container.h"
 
-using std::string;
-
 class fs : public container
 {
 public:
 	fs();
 	virtual ~fs();
 
+	std::string fstype;
+
 protected:
-	string fstype;
 };
 
 #endif // _FS_H_

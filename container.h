@@ -20,10 +20,9 @@
 #define _CONTAINER_H_
 
 #include <vector>
+#include <sstream>
 
 #include "backup.h"
-
-using std::vector;
 
 class container : public backup
 {
@@ -31,12 +30,16 @@ public:
 	container();
 	virtual ~container();
 
-	void add (container *c);
-	void remove (int index);
+	int add (container *c);
+	int remove (int index);
+
+	int size;
+
+	friend std::ostream & operator<< (std::ostream &stream, const container &c);
+	friend std::ostream & operator<< (std::ostream &stream, const container *c);
 
 protected:
-	int size;
-	vector<container> children;
+	std::vector<container*> children;
 };
 
 #endif // _CONTAINER_H_

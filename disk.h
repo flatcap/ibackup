@@ -23,8 +23,6 @@
 
 #include "container.h"
 
-using std::string;
-
 class disk : public container
 {
 public:
@@ -32,8 +30,8 @@ public:
 	virtual ~disk();
 
 protected:
-	string label;
-	string serial;
+	std::string label;
+	std::string serial;
 };
 
 #endif // _DISK_H_
