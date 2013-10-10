@@ -19,6 +19,8 @@
 #ifndef _PARTITION_H_
 #define _PARTITION_H_
 
+#include <sstream>
+
 #include "container.h"
 
 class partition : public container
@@ -32,6 +34,8 @@ public:
 	friend void swap (partition &first, partition &second);
 
 	partition & operator= (partition p);
+
+	virtual std::string dump_dot (void);
 
 	int type;
 

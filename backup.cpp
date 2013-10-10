@@ -18,6 +18,7 @@
 
 #include <cstdio>
 #include <memory>
+#include <sstream>
 
 #include "backup.h"
 
@@ -26,7 +27,7 @@
  */
 backup::backup()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 /**
@@ -34,7 +35,7 @@ backup::backup()
  */
 backup::backup (const backup &b)
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 /**
@@ -43,7 +44,7 @@ backup::backup (const backup &b)
 backup::backup (backup &&b) :
 	backup()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	swap (*this, b);
 }
 
@@ -52,7 +53,7 @@ backup::backup (backup &&b) :
  */
 backup::~backup()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 
@@ -61,7 +62,7 @@ backup::~backup()
  */
 backup & backup::operator= (backup b)
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	swap (*this, b);
 	return *this;
 }
@@ -71,7 +72,7 @@ backup & backup::operator= (backup b)
  */
 void swap (backup &first, backup &second)
 {
-	printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
+	//printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
 }
 
 

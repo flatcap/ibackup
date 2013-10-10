@@ -25,7 +25,8 @@
  */
 disk::disk()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	declare ("disk", "#aaffaa");
 }
 
 /**
@@ -35,7 +36,8 @@ disk::disk (const disk &d) :
 	label (d.label),
 	serial (d.serial)
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	declare ("disk", "#aaffaa");
 }
 
 /**
@@ -44,7 +46,7 @@ disk::disk (const disk &d) :
 disk::disk (disk &&d) :
 	disk()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	swap (*this, d);
 }
 
@@ -53,7 +55,7 @@ disk::disk (disk &&d) :
  */
 disk::~disk()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 
@@ -62,7 +64,7 @@ disk::~disk()
  */
 disk & disk::operator= (disk d)
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	swap (*this, d);
 	return *this;
 }
@@ -72,8 +74,23 @@ disk & disk::operator= (disk d)
  */
 void swap (disk &first, disk &second)
 {
-	printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
+	//printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
 	std::swap (first.children, second.children);
 }
 
+
+/**
+ * dump_dot
+ */
+std::string disk::dump_dot (void)
+{
+	std::ostringstream output;
+
+	output << container::dump_dot();
+
+	output << dump_row ("label",  label);
+	output << dump_row ("serial", serial);
+
+	return output.str();
+}
 

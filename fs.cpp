@@ -25,7 +25,8 @@
  */
 fs::fs()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	declare ("filesystem", "#bbffff");
 }
 
 /**
@@ -34,7 +35,8 @@ fs::fs()
 fs::fs (const fs &f) :
 	fstype (f.fstype)
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	declare ("filesystem", "#bbffff");
 }
 
 /**
@@ -43,7 +45,7 @@ fs::fs (const fs &f) :
 fs::fs (fs &&f) :
 	fs()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	swap (*this, f);
 }
 
@@ -52,7 +54,7 @@ fs::fs (fs &&f) :
  */
 fs::~fs()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 
@@ -61,7 +63,7 @@ fs::~fs()
  */
 fs & fs::operator= (fs f)
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	swap (*this, f);
 	return *this;
 }
@@ -71,8 +73,22 @@ fs & fs::operator= (fs f)
  */
 void swap (fs &first, fs &second)
 {
-	printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
+	//printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
 	std::swap (first.children, second.children);
 }
 
+
+/**
+ * dump_dot
+ */
+std::string fs::dump_dot (void)
+{
+	std::ostringstream output;
+
+	output << container::dump_dot();
+
+	output << dump_row ("filesystem", fstype);
+
+	return output.str();
+}
 

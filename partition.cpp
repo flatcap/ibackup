@@ -25,7 +25,8 @@
  */
 partition::partition()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	declare ("partition", "#ffffdd");
 }
 
 /**
@@ -34,7 +35,8 @@ partition::partition()
 partition::partition (const partition &p) :
 	type (p.type)
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	declare ("partition", "#ffffdd");
 }
 
 /**
@@ -43,7 +45,7 @@ partition::partition (const partition &p) :
 partition::partition (partition &&p) :
 	partition()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	swap (*this, p);
 }
 
@@ -52,7 +54,7 @@ partition::partition (partition &&p) :
  */
 partition::~partition()
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 
@@ -61,7 +63,7 @@ partition::~partition()
  */
 partition & partition::operator= (partition p)
 {
-	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	swap (*this, p);
 	return *this;
 }
@@ -71,8 +73,22 @@ partition & partition::operator= (partition p)
  */
 void swap (partition &first, partition &second)
 {
-	printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
+	//printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
 	std::swap (first.children, second.children);
 }
 
+
+/**
+ * dump_dot
+ */
+std::string partition::dump_dot (void)
+{
+	std::ostringstream output;
+
+	output << container::dump_dot();
+
+	output << dump_row ("type", type);
+
+	return output.str();
+}
 

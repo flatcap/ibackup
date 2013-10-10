@@ -22,6 +22,7 @@
 #include <vector>
 #include <sstream>
 #include <utility>
+#include <sstream>
 
 #include "backup.h"
 
@@ -33,8 +34,18 @@ public:
 	container (container &&c);
 	virtual ~container();
 
+	void * operator new    (size_t s);
+	void   operator delete (void *ptr);
+
+	void ref (void);
+	void unref (void);
+
 	int add (container *c);
 	int remove (int index);
+
+	virtual bool is_a (const std::string &type);
+	std::string	 name;
+	std::vector<std::string> type;
 
 	int size;
 
@@ -44,8 +55,27 @@ public:
 
 	container & operator= (container c);
 
+	static void dump_leaks (void);
+	std::string dump_objects (void);
+	virtual std::string dump_dot (void);
+
 protected:
+	std::string dump_row (const char *name, long long value);
+	std::string dump_row (const char *name, long value);
+	std::string dump_row (const char *name, int value);
+	std::string dump_row (const char *name, unsigned int value);
+	std::string dump_row (const char *name, bool value);
+	std::string dump_row (const char *name, std::string &value);
+	std::string dump_row (const char *name, void *value);
+
+	std::string get_size (long long size);
+
 	std::vector<container*> children;
+
+	void declare (const char *name, const char *colour = NULL);
+
+	std::string dot_colour;
+	int ref_count;
 };
 
 #endif // _CONTAINER_H_

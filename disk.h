@@ -20,6 +20,7 @@
 #define _DISK_H_
 
 #include <string>
+#include <sstream>
 
 #include "container.h"
 
@@ -35,9 +36,12 @@ public:
 
 	disk & operator= (disk d);
 
-protected:
+	virtual std::string dump_dot (void);
+
 	std::string label;
 	std::string serial;
+
+protected:
 };
 
 #endif // _DISK_H_

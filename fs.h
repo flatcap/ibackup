@@ -20,6 +20,7 @@
 #define _FS_H_
 
 #include <string>
+#include <sstream>
 
 #include "container.h"
 
@@ -36,6 +37,8 @@ public:
 	fs & operator= (fs f);
 
 	std::string fstype;
+
+	virtual std::string dump_dot (void);
 
 protected:
 };

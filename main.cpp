@@ -27,10 +27,11 @@
 #include "partition.h"
 
 /**
- * populate
+ * make_tree
  */
-static void populate (disk *d)
+static disk * make_tree (void)
 {
+	disk *d = new disk;
 	d->size = 100;
 
 	partition *p;
@@ -41,7 +42,7 @@ static void populate (disk *d)
 	p->size = 30;
 
 	f = new fs();
-	f->fstype = 7;
+	f->fstype = "ext4";
 	f->size = 30;
 
 	p->add (f);
@@ -53,12 +54,28 @@ static void populate (disk *d)
 	p->size = 20;
 
 	f = new fs();
-	f->fstype = 9;
+	f->fstype = "ntfs";
 	f->size = 15;
 
 	p->add (f);
 
 	d->add (p);
+
+	return d;
+}
+
+/**
+ * run_dot
+ */
+void run_dot (const std::string &input)
+{
+	FILE *file = NULL;
+
+	file = popen ("dot -Tpng | display -resize 75% - &", "w");
+
+	fprintf (file, "%s\n", input.c_str());
+
+	pclose (file);
 }
 
 
@@ -67,13 +84,14 @@ static void populate (disk *d)
  */
 int main (int argc, char *argv[])
 {
-	disk *d = new disk;
+	disk *d = make_tree();
+	d->label = "fedora";
+	d->serial = "0x1234";
 
-	populate (d);
-
-	std::cout << d << std::endl;
+	run_dot (d->dump_objects());
 
 	delete d;
+	d->dump_leaks();
 	return 0;
 }
 
