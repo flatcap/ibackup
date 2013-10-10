@@ -16,16 +16,38 @@
  */
 
 
+#include <cstdio>
 #include <typeinfo>
 
 #include "container.h"
 
 /**
- * container
+ * container (default)
  */
 container::container() :
 	size(0)
 {
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * container (copy)
+ */
+container::container (const container &c) :
+	size (c.size),
+	children (c.children)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * container (move)
+ */
+container::container (container &&c) :
+	container()
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, c);
 }
 
 /**
@@ -33,6 +55,7 @@ container::container() :
  */
 container::~container()
 {
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	for (auto c : children) {
 		delete c;
 	}
@@ -40,29 +63,30 @@ container::~container()
 
 
 /**
- * add
+ * operator=
  */
-int container::add (container *c)
+container & container::operator= (container c)
 {
-	children.push_back(c);
-	return children.size();
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, c);
+	return *this;
 }
 
 /**
- * remove
+ * swap
  */
-int container::remove (int index)
+void swap (container &first, container &second)
 {
-	children.erase(children.begin() + index);
-	return children.size();
+	printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
+	std::swap (first.children, second.children);
 }
-
 
 /**
  * operator<<
  */
 std::ostream& operator<< (std::ostream &stream, const container &c)
 {
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	stream << typeid(c).name() << " = " << c.size;
 
 	for (auto i : c.children) {
@@ -77,10 +101,32 @@ std::ostream& operator<< (std::ostream &stream, const container &c)
  */
 std::ostream& operator<< (std::ostream &stream, const container *c)
 {
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 	if (c)
 		return operator<< (stream, *c);
 	else
 		return stream;
+}
+
+
+/**
+ * add
+ */
+int container::add (container *c)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	children.push_back(c);
+	return children.size();
+}
+
+/**
+ * remove
+ */
+int container::remove (int index)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	children.erase(children.begin() + index);
+	return children.size();
 }
 
 

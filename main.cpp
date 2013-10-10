@@ -16,7 +16,9 @@
  */
 
 
+#include <cstdio>
 #include <iostream>
+#include <memory>
 
 #include "backup.h"
 #include "container.h"
@@ -27,9 +29,9 @@
 /**
  * populate
  */
-static void populate (disk &d)
+static void populate (const std::unique_ptr<disk> &d)
 {
-	d.size = 100;
+	d->size = 100;
 
 	partition *p;
 	fs *f;
@@ -44,7 +46,7 @@ static void populate (disk &d)
 
 	p->add (f);
 
-	d.add (p);
+	d->add (p);
 
 	p = new partition();
 	p->type = 99;
@@ -56,7 +58,7 @@ static void populate (disk &d)
 
 	p->add (f);
 
-	d.add (p);
+	d->add (p);
 }
 
 
@@ -65,10 +67,11 @@ static void populate (disk &d)
  */
 int main (int argc, char *argv[])
 {
-	disk d;
+	std::unique_ptr<disk> d (new disk);
+
 	populate (d);
 
-	std::cout << d << std::endl;
+	std::cout << *d << std::endl;
 
 	return 0;
 }

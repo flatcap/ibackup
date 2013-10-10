@@ -16,6 +16,8 @@
  */
 
 
+#include <cstdio>
+
 #include "backup.h"
 
 /**
@@ -23,6 +25,7 @@
  */
 backup::backup()
 {
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 /**
@@ -30,5 +33,6 @@ backup::backup()
  */
 backup::~backup()
 {
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 

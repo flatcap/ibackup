@@ -16,13 +16,36 @@
  */
 
 
+#include <cstdio>
+
 #include "disk.h"
 
 /**
- * disk
+ * disk (default)
  */
 disk::disk()
 {
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * disk (copy)
+ */
+disk::disk (const disk &d) :
+	label (d.label),
+	serial (d.serial)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * disk (move)
+ */
+disk::disk (disk &&d) :
+	disk()
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, d);
 }
 
 /**
@@ -30,5 +53,29 @@ disk::disk()
  */
 disk::~disk()
 {
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
+
+
+#if 0
+/**
+ * operator=
+ */
+disk & disk::operator= (disk d)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, d);
+	return *this;
+}
+
+#endif
+/**
+ * swap
+ */
+void swap (disk &first, disk &second)
+{
+	printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
+	std::swap (first.children, second.children);
+}
+
 

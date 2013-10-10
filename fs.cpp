@@ -16,6 +16,8 @@
  */
 
 
+#include <cstdio>
+
 #include "fs.h"
 
 /**
@@ -23,6 +25,7 @@
  */
 fs::fs()
 {
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 /**
@@ -30,5 +33,6 @@ fs::fs()
  */
 fs::~fs()
 {
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 

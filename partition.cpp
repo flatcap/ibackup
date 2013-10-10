@@ -16,6 +16,8 @@
  */
 
 
+#include <cstdio>
+
 #include "partition.h"
 
 /**
@@ -23,6 +25,7 @@
  */
 partition::partition()
 {
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 /**
@@ -30,5 +33,6 @@ partition::partition()
  */
 partition::~partition()
 {
+	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 

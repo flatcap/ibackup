@@ -21,6 +21,7 @@
 
 #include <vector>
 #include <sstream>
+#include <utility>
 
 #include "backup.h"
 
@@ -28,6 +29,8 @@ class container : public backup
 {
 public:
 	container();
+	container (const container &c);
+	container (container &&c);
 	virtual ~container();
 
 	int add (container *c);
@@ -37,6 +40,9 @@ public:
 
 	friend std::ostream & operator<< (std::ostream &stream, const container &c);
 	friend std::ostream & operator<< (std::ostream &stream, const container *c);
+	friend void swap (container &first, container &second);
+
+	container & operator= (container c);
 
 protected:
 	std::vector<container*> children;
