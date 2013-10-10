@@ -25,7 +25,13 @@ class partition : public container
 {
 public:
 	partition();
+	partition (const partition &p);
+	partition (partition &&p);
 	virtual ~partition();
+
+	friend void swap (partition &first, partition &second);
+
+	partition & operator= (partition p);
 
 	int type;
 

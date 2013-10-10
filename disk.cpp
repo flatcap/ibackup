@@ -57,7 +57,6 @@ disk::~disk()
 }
 
 
-#if 0
 /**
  * operator=
  */
@@ -68,7 +67,6 @@ disk & disk::operator= (disk d)
 	return *this;
 }
 
-#endif
 /**
  * swap
  */

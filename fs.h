@@ -27,7 +27,13 @@ class fs : public container
 {
 public:
 	fs();
+	fs (const fs &f);
+	fs (fs &&f);
 	virtual ~fs();
+
+	friend void swap (fs &first, fs &second);
+
+	fs & operator= (fs f);
 
 	std::string fstype;
 

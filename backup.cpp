@@ -17,15 +17,34 @@
 
 
 #include <cstdio>
+#include <memory>
 
 #include "backup.h"
 
 /**
- * backup
+ * backup (default)
  */
 backup::backup()
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * backup (copy)
+ */
+backup::backup (const backup &b)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * backup (move)
+ */
+backup::backup (backup &&b) :
+	backup()
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, b);
 }
 
 /**
@@ -33,6 +52,26 @@ backup::backup()
  */
 backup::~backup()
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
+
+
+/**
+ * operator=
+ */
+backup & backup::operator= (backup b)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, b);
+	return *this;
+}
+
+/**
+ * swap
+ */
+void swap (backup &first, backup &second)
+{
+	printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
+}
+
 

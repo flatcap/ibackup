@@ -23,7 +23,15 @@ class backup
 {
 public:
 	backup();
+	backup (const backup &b);
+	backup (backup &&b);
 	virtual ~backup();
+
+	friend void swap (backup &first, backup &second);
+
+	backup & operator= (backup b);
+
+protected:
 };
 
 #endif // _BACKUP_H_

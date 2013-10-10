@@ -29,7 +29,7 @@
 /**
  * populate
  */
-static void populate (const std::unique_ptr<disk> &d)
+static void populate (disk *d)
 {
 	d->size = 100;
 
@@ -67,12 +67,13 @@ static void populate (const std::unique_ptr<disk> &d)
  */
 int main (int argc, char *argv[])
 {
-	std::unique_ptr<disk> d (new disk);
+	disk *d = new disk;
 
 	populate (d);
 
-	std::cout << *d << std::endl;
+	std::cout << d << std::endl;
 
+	delete d;
 	return 0;
 }
 

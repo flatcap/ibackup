@@ -21,11 +21,30 @@
 #include "fs.h"
 
 /**
- * fs
+ * fs (default)
  */
 fs::fs()
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * fs (copy)
+ */
+fs::fs (const fs &f) :
+	fstype (f.fstype)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * fs (move)
+ */
+fs::fs (fs &&f) :
+	fs()
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, f);
 }
 
 /**
@@ -33,6 +52,27 @@ fs::fs()
  */
 fs::~fs()
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
+
+
+/**
+ * operator=
+ */
+fs & fs::operator= (fs f)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, f);
+	return *this;
+}
+
+/**
+ * swap
+ */
+void swap (fs &first, fs &second)
+{
+	printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
+	std::swap (first.children, second.children);
+}
+
 

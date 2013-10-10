@@ -27,15 +27,13 @@ class disk : public container
 {
 public:
 	disk();
-	disk (const disk &c);
-	disk (disk &&c);
+	disk (const disk &d);
+	disk (disk &&d);
 	virtual ~disk();
 
 	friend void swap (disk &first, disk &second);
 
-#if 0
 	disk & operator= (disk d);
-#endif
 
 protected:
 	std::string label;

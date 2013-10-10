@@ -21,11 +21,30 @@
 #include "partition.h"
 
 /**
- * partition
+ * partition (default)
  */
 partition::partition()
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * partition (copy)
+ */
+partition::partition (const partition &p) :
+	type (p.type)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+}
+
+/**
+ * partition (move)
+ */
+partition::partition (partition &&p) :
+	partition()
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, p);
 }
 
 /**
@@ -33,6 +52,27 @@ partition::partition()
  */
 partition::~partition()
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
+
+
+/**
+ * operator=
+ */
+partition & partition::operator= (partition p)
+{
+	printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	swap (*this, p);
+	return *this;
+}
+
+/**
+ * swap
+ */
+void swap (partition &first, partition &second)
+{
+	printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
+	std::swap (first.children, second.children);
+}
+
 
