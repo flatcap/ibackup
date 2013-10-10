@@ -32,3 +32,17 @@ container::~container()
 {
 }
 
+/**
+ * add
+ */
+void container::add (container *c)
+{
+}
+
+/**
+ * remove
+ */
+void container::remove (int index)
+{
+}
+

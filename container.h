@@ -31,6 +31,9 @@ public:
 	container();
 	virtual ~container();
 
+	void add (container *c);
+	void remove (int index);
+
 protected:
 	int size;
 	vector<container> children;
