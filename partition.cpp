@@ -18,10 +18,16 @@
 
 #include "partition.h"
 
+/**
+ * partition
+ */
 partition::partition()
 {
 }
 
+/**
+ * ~partition
+ */
 partition::~partition()
 {
 }
