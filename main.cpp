@@ -19,6 +19,9 @@
 #include <cstdio>
 #include <iostream>
 #include <memory>
+#include <deque>
+#include <utility>
+#include <string>
 
 #include "backup.h"
 #include "container.h"
@@ -27,51 +30,15 @@
 #include "partition.h"
 
 /**
- * make_tree
- */
-static disk * make_tree (void)
-{
-	disk *d = new disk;
-	d->size = 100;
-
-	partition *p;
-	fs *f;
-
-	p = new partition();
-	p->type = 42;
-	p->size = 30;
-
-	f = new fs();
-	f->fstype = "ext4";
-	f->size = 30;
-
-	p->add (f);
-
-	d->add (p);
-
-	p = new partition();
-	p->type = 99;
-	p->size = 20;
-
-	f = new fs();
-	f->fstype = "ntfs";
-	f->size = 15;
-
-	p->add (f);
-
-	d->add (p);
-
-	return d;
-}
-
-/**
  * run_dot
  */
-void run_dot (const std::string &input)
+void run_dot (const std::string &input, const std::string &title)
 {
 	FILE *file = NULL;
 
-	file = popen ("dot -Tpng | display -resize 75% - &", "w");
+	std::string command = "dot -Tpng | display -title \"" + title + "\" -resize 65% - &";
+
+	file = popen (command.c_str(), "w");
 
 	fprintf (file, "%s\n", input.c_str());
 
@@ -84,14 +51,54 @@ void run_dot (const std::string &input)
  */
 int main (int argc, char *argv[])
 {
-	disk *d = make_tree();
-	d->label = "fedora";
-	d->serial = "0x1234";
+	typedef std::pair<std::string,container*> time_pair;
+	typedef std::deque<time_pair>             time_deq;
+	time_deq timeline;
 
-	run_dot (d->dump_objects());
+	disk *d1;
+	partition *p1, *p2;
+	fs *f1, *f2;
 
-	delete d;
-	d->dump_leaks();
+	d1 = new disk;
+	d1->label = "fedora";
+	d1->serial = "0x1234";
+	d1->size = 100;
+
+	p1 = new partition();
+	p1->type = 42;
+	p1->size = 30;
+
+	f1 = new fs();
+	f1->fstype = "ext4";
+	f1->size = 30;
+
+	p1->add (f1);
+
+	d1->add (p1);
+
+	p2 = new partition();
+	p2->type = 99;
+	p2->size = 20;
+
+	f2 = new fs();
+	f2->fstype = "ntfs";
+	f2->size = 15;
+
+	p2->add (f2);
+
+	d1->add (p2);
+
+	run_dot (d1->dump_objects(), "first");
+
+	time_pair event("delete partition", p2);
+	timeline.push_back (event);
+	auto time_iter = timeline.back();
+	p2->remove(0);
+
+	run_dot (d1->dump_objects(), "second");
+
+	delete d1;
+	d1->dump_leaks();
 	return 0;
 }
 

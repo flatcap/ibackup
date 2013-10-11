@@ -26,7 +26,7 @@
 fs::fs()
 {
 	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
-	declare ("filesystem", "#bbffff");
+	declare ("fs", "#bbffff");
 }
 
 /**
@@ -36,7 +36,7 @@ fs::fs (const fs &f) :
 	fstype (f.fstype)
 {
 	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
-	declare ("filesystem", "#bbffff");
+	declare ("fs", "#bbffff");
 }
 
 /**

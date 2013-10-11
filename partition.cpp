@@ -26,7 +26,7 @@
 partition::partition()
 {
 	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
-	declare ("partition", "#ffffdd");
+	declare ("part", "#ffffdd");
 }
 
 /**
@@ -36,7 +36,7 @@ partition::partition (const partition &p) :
 	type (p.type)
 {
 	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
-	declare ("partition", "#ffffdd");
+	declare ("part", "#ffffdd");
 }
 
 /**

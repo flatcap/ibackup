@@ -162,7 +162,9 @@ int container::add (container *c)
 int container::remove (int index)
 {
 	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
-	children.erase(children.begin() + index);
+	auto iter = children.begin() + index;
+	delete *iter;
+	children.erase(iter);
 	return children.size();
 }
 
