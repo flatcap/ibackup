@@ -16,26 +16,39 @@
  */
 
 
-#ifndef _BACKUP_H_
-#define _BACKUP_H_
+#ifndef _MANAGER_H_
+#define _MANAGER_H_
 
-class container;
+#include <unordered_set>
 
-class backup
+#include "container.h"
+
+class manager
 {
 public:
-	backup();
-	backup (const backup &b);
-	backup (backup &&b);
-	virtual ~backup();
+	manager();
+	virtual ~manager();
 
-	friend void swap (backup &first, backup &second);
-
-	backup & operator= (backup b);
+	container * add    (container *parent, container *child);
+	container * remove (container *item);
 
 protected:
-	container *old;
+	std::unordered_set<container*>	pool_current;
+	std::unordered_set<container*>	pool_old;
+
+	// timeline
+	//	changes
+	//	iterator
+	//
+	// disks -- discovery
+	// partition -- read partition table
+	// fs -- probe
+
+	void freeze();
+	void thaw();
+
+	container head;
 };
 
-#endif // _BACKUP_H_
+#endif // _MANAGER_H_
 

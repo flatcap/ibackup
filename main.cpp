@@ -59,10 +59,13 @@ int main (int argc, char *argv[])
 	partition *p1, *p2;
 	fs *f1, *f2;
 
+	// device discovery
 	d1 = new disk;
 	d1->label = "fedora";
 	d1->serial = "0x1234";
 	d1->size = 100;
+
+	//manager->add (NULL, d1);
 
 	p1 = new partition();
 	p1->type = 42;

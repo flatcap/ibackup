@@ -25,6 +25,7 @@
 #include <sstream>
 
 #include "backup.h"
+//#include "manager.h"
 
 class container : public backup
 {
@@ -76,6 +77,8 @@ protected:
 
 	std::string dot_colour;
 	int ref_count;
+
+	//unique_ptr<manager>
 };
 
 #endif // _CONTAINER_H_

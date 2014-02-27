@@ -16,65 +16,54 @@
  */
 
 
-#include <cstdio>
-#include <memory>
-#include <sstream>
-
-#include "backup.h"
+#include "manager.h"
+#include "container.h"
 
 /**
- * backup (default)
+ * manager
  */
-backup::backup() :
-	old (NULL)
+manager::manager() :
+	head()
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	head.name = "dummy";
 }
 
 /**
- * backup (copy)
+ * ~manager
  */
-backup::backup (const backup &b) :
-	old (NULL)
+manager::~manager()
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
 }
 
 /**
- * backup (move)
+ * add
  */
-backup::backup (backup &&b) :
-	backup()
+container *
+manager::add (container *parent, container *child)
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
-	swap (*this, b);
+	if (!parent) {
+		//top = child;
+	}
+
+	child->ref();
+	pool_current.insert(child);
+
+	if (parent) {
+		//container *parent_copy = parent->copy();
+		parent->ref();
+		pool_old.insert(parent);
+	}
+
+	return NULL;
 }
 
 /**
- * ~backup
+ * remove
  */
-backup::~backup()
+container *
+manager::remove (container *item)
 {
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
+	std::tuple<long, container *, container *, std::string> t;
+	return NULL;
 }
-
-
-/**
- * operator=
- */
-backup & backup::operator= (backup b)
-{
-	//printf ("%s (%p)\n", __PRETTY_FUNCTION__, this);
-	swap (*this, b);
-	return *this;
-}
-
-/**
- * swap
- */
-void swap (backup &first, backup &second)
-{
-	//printf ("%s (%p,%p)\n", __PRETTY_FUNCTION__, &first, &second);
-}
-
 

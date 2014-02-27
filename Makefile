@@ -2,8 +2,8 @@ CC	= g++
 RM	= rm -fr
 MKDIR	= mkdir -p
 
-SRC	= main.cpp backup.cpp container.cpp disk.cpp fs.cpp partition.cpp
-HDR	= backup.h container.h disk.h fs.h partition.h
+SRC	= main.cpp manager.cpp backup.cpp container.cpp disk.cpp fs.cpp partition.cpp
+HDR	= manager.h backup.h container.h disk.h fs.h partition.h
 
 DEPDIR	= .dep
 OBJDIR	= .obj
